@@ -1,0 +1,83 @@
+/* ============================================
+   🧾 Typography System
+   ============================================ */
+
+/* ── Display headings: menu-board style ── */
+h1, h2,
+.heading-display {
+  font-family: var(--font-display);
+  font-weight: 400; /* Archivo Black is inherently bold */
+  color: var(--color-text-primary);
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+  line-height: 1.15;
+}
+
+h1 {
+  font-size: 2.5rem;
+  margin: 0 0 var(--space-md);
+}
+
+h2 {
+  font-size: 1.75rem;
+  margin: 0 0 var(--space-sm);
+}
+
+h3 {
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: 1.125rem;
+  color: var(--color-text-primary);
+  margin: 0 0 var(--space-sm);
+}
+
+/* ── Body text ── */
+body,
+.body-text {
+  font-family: var(--font-body);
+  font-weight: 400;
+  font-size: 0.9375rem;
+  line-height: 1.6;
+  color: var(--color-text-secondary);
+}
+
+.body-medium {
+  font-weight: 500;
+}
+
+/* ── Mono — prices, order numbers, statuses ── */
+.price,
+.order-number,
+.status-text,
+.mono-text {
+  font-family: var(--font-mono);
+  font-weight: 500;
+  letter-spacing: -0.01em;
+}
+
+.price {
+  font-size: 1.125rem;
+  color: var(--color-text-primary);
+}
+
+.order-number {
+  font-size: 0.875rem;
+  color: var(--color-text-secondary);
+}
+
+/* ── Labels & small text ── */
+.label {
+  font-family: var(--font-body);
+  font-weight: 500;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--color-text-muted);
+}
+
+.caption {
+  font-family: var(--font-body);
+  font-weight: 400;
+  font-size: 0.8125rem;
+  color: var(--color-text-muted);
+}

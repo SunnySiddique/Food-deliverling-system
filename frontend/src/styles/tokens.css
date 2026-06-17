@@ -1,0 +1,59 @@
+/* ============================================
+   🧾 Food Ordering UI — Design Tokens
+   "Kitchen ticket / menu board" visual identity
+   ============================================ */
+
+:root {
+  /* ── Color Palette (flat fills, no gradients) ── */
+  --color-bg: #FFF8F0;            /* warm paper cream */
+  --color-surface: #FFFFFF;        /* card backgrounds */
+  --color-text-primary: #1A1A1A;   /* ink */
+  --color-text-secondary: #5C5C5C; /* muted ink */
+  --color-text-muted: #8C8C8C;     /* faded ink */
+
+  --color-accent-red: #E63946;     /* chili red — CTAs, active states */
+  --color-accent-red-hover: #C5303C;
+  --color-accent-red-light: rgba(230, 57, 70, 0.08);
+
+  --color-accent-teal: #2A9D8F;    /* herb teal — success, confirmed, paid */
+  --color-accent-teal-hover: #238B7E;
+  --color-accent-teal-light: rgba(42, 157, 143, 0.08);
+
+  --color-accent-gold: #F4A300;    /* turmeric gold — badges, highlights */
+  --color-accent-gold-light: rgba(244, 163, 0, 0.12);
+
+  --color-border: #E8E1D5;         /* muted tan — solid borders */
+  --color-border-dashed: #D6CBB8;  /* ticket-style dashed separators */
+
+  --color-row-alt: #FDFAF5;        /* alternating table row tint */
+
+  --color-danger: #D62828;
+  --color-warning: #F4A300;
+
+  /* ── Typography ── */
+  --font-display: 'Archivo Black', 'Oswald', 'Impact', sans-serif;
+  --font-body: 'Inter', 'Work Sans', system-ui, -apple-system, sans-serif;
+  --font-mono: 'JetBrains Mono', 'IBM Plex Mono', 'SF Mono', ui-monospace, monospace;
+
+  /* ── Spacing ── */
+  --space-xs: 4px;
+  --space-sm: 8px;
+  --space-md: 16px;
+  --space-lg: 24px;
+  --space-xl: 32px;
+  --space-2xl: 48px;
+  --space-3xl: 64px;
+
+  /* ── Border Radius ── */
+  --radius-sm: 4px;
+  --radius-md: 6px;
+  --radius-lg: 8px;
+
+  /* ── Shadows (very subtle, ticket-style) ── */
+  --shadow-ticket: 0 1px 3px rgba(0, 0, 0, 0.06), 0 1px 2px rgba(0, 0, 0, 0.04);
+  --shadow-stamp: 0 1px 2px rgba(0, 0, 0, 0.08);
+
+  /* ── Transitions ── */
+  --transition-fast: 150ms ease;
+  --transition-base: 200ms ease;
+}

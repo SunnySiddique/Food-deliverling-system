@@ -1,0 +1,45 @@
+/* ── Redirecting Page (transient PayHere loading state) ── */
+.page {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 60vh;
+  background-color: var(--color-bg);
+  gap: var(--space-lg);
+  padding: var(--space-lg);
+}
+
+.spinner {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background-color: var(--color-accent-teal);
+  animation: pulse 1.2s ease-in-out infinite;
+}
+
+.text {
+  font-family: var(--font-body);
+  font-size: 0.9375rem;
+  color: var(--color-text-muted);
+  margin: 0;
+}
+
+@keyframes pulse {
+  0%, 100% {
+    opacity: 0.4;
+    transform: scale(0.85);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.1);
+  }
+}
+
+/* ── Responsive ── */
+@media (max-width: 480px) {
+  .page {
+    min-height: 50vh;
+    padding: var(--space-md);
+  }
+}

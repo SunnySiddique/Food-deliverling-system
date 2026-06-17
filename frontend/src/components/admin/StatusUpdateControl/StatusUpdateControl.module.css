@@ -1,0 +1,60 @@
+/* ── Status Update Control ── */
+.control {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+}
+
+.label {
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: 0.8125rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--color-text-primary);
+}
+
+.segmented {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-xs);
+  padding: var(--space-sm);
+  background: var(--color-row-alt);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+}
+
+.option {
+  padding: 4px 6px;
+  border-radius: var(--radius-sm);
+  transition: all var(--transition-fast);
+  cursor: pointer;
+}
+
+.option:hover {
+  background: rgba(0, 0, 0, 0.03);
+}
+
+.active {
+  background: var(--color-surface);
+}
+
+/* ── Responsive ── */
+@media (max-width: 480px) {
+  .segmented {
+    flex-direction: column;
+    gap: var(--space-xs);
+  }
+
+  .option {
+    width: 100%;
+    padding: 8px;
+  }
+
+  .option button,
+  .option span {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+  }
+}

@@ -1,0 +1,123 @@
+/* ── Orders Table ── */
+.tableWrap {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  position: relative;
+}
+
+.tableWrap::before,
+.tableWrap::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 2px;
+  pointer-events: none;
+}
+
+.tableWrap::before {
+  top: -1px;
+  background: repeating-linear-gradient(
+    90deg,
+    transparent,
+    transparent 4px,
+    var(--color-border) 4px,
+    var(--color-border) 6px
+  );
+}
+
+.tableWrap::after {
+  bottom: -1px;
+  background: repeating-linear-gradient(
+    90deg,
+    transparent,
+    transparent 4px,
+    var(--color-border) 4px,
+    var(--color-border) 6px
+  );
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.875rem;
+}
+
+.headerRow th {
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: 0.6875rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--color-text-muted);
+  padding: var(--space-md) var(--space-lg);
+  text-align: left;
+  border-bottom: 1px solid var(--color-border);
+  background: var(--color-row-alt);
+}
+
+.row {
+  cursor: pointer;
+  transition: background var(--transition-fast);
+}
+
+.row:hover {
+  background: var(--color-accent-red-light);
+}
+
+.alt {
+  background: var(--color-row-alt);
+}
+
+.row td {
+  padding: var(--space-md) var(--space-lg);
+  color: var(--color-text-primary);
+  border-bottom: 1px dashed var(--color-border-dashed);
+}
+
+.mono {
+  font-family: var(--font-mono);
+  font-weight: 500;
+}
+
+.time {
+  font-size: 0.8125rem;
+  color: var(--color-text-muted);
+}
+
+.empty {
+  text-align: center;
+  padding: var(--space-2xl);
+  color: var(--color-text-muted);
+}
+
+/* ── Responsive ── */
+@media (max-width: 480px) {
+  .tableWrap {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .table {
+    min-width: 600px;
+    font-size: 0.8125rem;
+  }
+
+  .headerRow th,
+  .row td {
+    padding: var(--space-sm) var(--space-md);
+  }
+}
+
+@media (min-width: 481px) and (max-width: 1024px) {
+  .table {
+    font-size: 0.8125rem;
+  }
+
+  .headerRow th,
+  .row td {
+    padding: var(--space-sm) var(--space-md);
+  }
+}
