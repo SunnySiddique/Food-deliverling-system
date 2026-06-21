@@ -74,7 +74,7 @@ const createProduct = async (req, res) => {
       errors.push("Name is required and must be at least 2 characters");
     }
 
-    if (!category || !VALID_CATEGORIES.includes(category)) {
+    if (!category.trim() || !VALID_CATEGORIES.includes(category)) {
       errors.push(`Category must be one of: ${VALID_CATEGORIES.join(", ")}`);
     }
     if (!price || isNaN(Number(price)) || Number(price) <= 0) {

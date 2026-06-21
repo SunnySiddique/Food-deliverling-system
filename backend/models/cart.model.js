@@ -6,26 +6,16 @@ const cartSchema = new mongoose.Schema(
       type: mongoose.Schema.Types.ObjectId,
       ref: "User",
       required: true,
+      unique: true,
     },
 
     items: [
       {
         itemId: {
           type: mongoose.Schema.Types.ObjectId,
-          ref: "FoodItem",
+          ref: "Product",
           required: true,
         },
-
-        name: {
-          type: String,
-          required: true,
-        },
-
-        price: {
-          type: Number,
-          required: true,
-        },
-
         quantity: {
           type: Number,
           required: true,
@@ -35,9 +25,7 @@ const cartSchema = new mongoose.Schema(
       },
     ],
   },
-  {
-    timestamps: true,
-  },
+  { timestamps: true },
 );
 
 const Cart = mongoose.model("Cart", cartSchema);

@@ -1,32 +1,79 @@
+import Cart from "../models/cart.model.js";
 import Order from "../models/order.model.js";
-import Product from "../models/product.model.js";
 import { generateOrderId } from "../utils/generateOrderId.js";
+
+// user
+const getOrders = async (req, res) => {
+  try {
+    const userId = req.user._id;
+
+    const orders = await Order.find({ customerId: userId }).sort({
+      createdAt: -1,
+    });
+
+    if (orders.length === 0) {
+      return res
+        .status(404)
+        .json({ success: false, message: "No orders found" });
+    }
+
+    return res.status(200).json({ success: true, data: { orders } });
+  } catch (error) {
+    console.error("Error in [getOrders] controller:", error.message);
+    return res
+      .status(500)
+      .json({ success: false, message: "Failed to fetch orders" });
+  }
+};
+
+// admin
+const getAllOrders = async (req, res) => {
+  try {
+    const orders = await Order.find({})
+      .populate("customerId", "name email")
+      .sort({ createdAt: -1 });
+
+    if (orders.length === 0) {
+      return res
+        .status(404)
+        .json({ success: false, message: "No orders found" });
+    }
+
+    return res
+      .status(200)
+      .json({ success: true, data: { orders, total: orders.length } });
+  } catch (error) {
+    console.error("Error in [getAllOrders] controller:", error.message);
+    return res
+      .status(500)
+      .json({ success: false, message: "Failed to fetch orders" });
+  }
+};
 
 const createOrder = async (req, res) => {
   try {
-    const { customerId, orderItems, deliveryAddress } = req.body;
+    const { deliveryAddress } = req.body;
+    const userId = req.user._id;
 
-    const productIds = orderItems.map((item) => item.productId);
-    const products = await Product.find({ _id: { $in: productIds } });
+    const cart = await Cart.findOne({ userId }).populate(
+      "items.itemId",
+      "name price imageUrl",
+    );
 
-    const validatedItems = orderItems.map((item) => {
-      const realProduct = products.find(
-        (p) => p._id.toString() === item.productId,
-      );
+    if (!cart || cart.items.length === 0) {
+      return res.status(400).json({ success: false, message: "Cart is empty" });
+    }
 
-      if (!realProduct) {
-        throw new Error(`Product ${item.productId} not found`);
-      }
+    // Build orderItems from cart — no frontend data needed
+    const orderItems = cart.items.map((item) => ({
+      productId: item.itemId._id,
+      name: item.itemId.name,
+      price: item.itemId.price,
+      imageUrl: item.itemId.imageUrl,
+      quantity: item.quantity,
+    }));
 
-      return {
-        productId: item.productId,
-        name: realProduct.name,
-        price: realProduct.price,
-        quantity: item.quantity,
-      };
-    });
-
-    const totalAmount = validatedItems.reduce((sum, item) => {
+    const totalAmount = orderItems.reduce((sum, item) => {
       return sum + item.price * item.quantity;
     }, 0);
 
@@ -35,19 +82,21 @@ const createOrder = async (req, res) => {
 
     const order = await Order.create({
       orderId,
-      customerId,
-      orderItems: validatedItems,
+      customerId: userId,
+      orderItems,
       totalAmount,
       deliveryAddress,
     });
 
+    await Cart.findOneAndDelete({ userId });
+
     return res.status(201).json({ success: true, data: { order } });
   } catch (error) {
     console.error("Error in [createOrder] controller:", error.message);
-    res
+    return res
       .status(500)
-      .json({ success: false, message: "Failed to fetch product" });
+      .json({ success: false, message: "Failed to create order" });
   }
 };
 
-export { createOrder };
+export { createOrder, getAllOrders };
