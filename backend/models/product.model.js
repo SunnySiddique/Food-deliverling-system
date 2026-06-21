@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 
-const foodItemSchema = new mongoose.Schema(
+const product = new mongoose.Schema(
   {
     name: {
       type: String,
@@ -31,6 +31,11 @@ const foodItemSchema = new mongoose.Schema(
       required: true,
     },
 
+    imagePublicId: {
+      type: String,
+      default: null,
+    },
+
     isAvailable: {
       type: Boolean,
       default: true,
@@ -41,6 +46,6 @@ const foodItemSchema = new mongoose.Schema(
   },
 );
 
-const FoodItem = mongoose.model("FoodItem", foodItemSchema);
+const Product = mongoose.model("Product", product);
 
-export default FoodItem;
+export default Product;
