@@ -1,9 +1,14 @@
 import express from "express";
-import { createOrder } from "../controllers/order.controller.js";
+import { createOrder, getAllOrders } from "../controllers/order.controller.js";
 import authProtected from "../middlewares/auth.middleware.js";
 
 const router = express.Router();
 
-router.post("/create", authProtected, createOrder);
+router.post("/", authProtected, createOrder);
+
+// user
+router.get("/user/orders", authProtected, getAllOrders);
+// admin
+router.get("/admin/orders", authProtected, getAllOrders);
 
 export default router;
