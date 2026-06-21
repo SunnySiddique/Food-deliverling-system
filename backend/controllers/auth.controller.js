@@ -1,6 +1,6 @@
 import jwt from "jsonwebtoken";
 import envVariables from "../config/envVariables.js";
-import User from "../models/user.model.js";
+import User from "../models/auth.model.js";
 import setTokenCookie from "../utils/setCookie.js";
 
 const signupUser = async (req, res) => {

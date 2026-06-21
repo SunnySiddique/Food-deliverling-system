@@ -1,6 +1,6 @@
 import jwt from "jsonwebtoken";
 import envVariables from "../config/envVariables.js";
-import User from "../models/user.model.js";
+import User from "../models/auth.model.js";
 
 const authProtected = async (req, res, next) => {
   try {
@@ -12,7 +12,7 @@ const authProtected = async (req, res, next) => {
         .json({ success: true, message: "Unauthorized - No token provided" });
 
     const decoded = await jwt.verify(token, envVariables.JWT_SECRET);
-
+    console.log("decoded:", decoded);
     if (!decoded) {
       return res
         .status(401)
