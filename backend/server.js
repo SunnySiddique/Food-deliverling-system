@@ -5,6 +5,7 @@ import express from "express";
 import connectDB from "./config/db.js";
 import envVariables from "./config/envVariables.js";
 import authRoutes from "./routes/auth.route.js";
+import orderRoutes from "./routes/order.route.js";
 import productRoutes from "./routes/product.route.js";
 
 dotenv.config();
@@ -19,6 +20,7 @@ app.use(cookieParser());
 // API routes
 app.use("/api/v1/auth", authRoutes);
 app.use("/api/v1/products", productRoutes);
+app.use("/api/v1/orders", orderRoutes);
 
 app.listen(envVariables.PORT, async () => {
   await connectDB();

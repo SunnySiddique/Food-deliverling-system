@@ -1,4 +1,4 @@
-import { mongoose } from "mongoose";
+import mongoose from "mongoose";
 
 const orderSchema = new mongoose.Schema(
   {
@@ -14,13 +14,13 @@ const orderSchema = new mongoose.Schema(
       required: true,
     },
 
-    customerName: {
-      type: String,
-      required: true,
-    },
-
     orderItems: [
       {
+        productId: {
+          type: mongoose.Schema.Types.ObjectId,
+          ref: "Product",
+          required: true,
+        },
         name: {
           type: String,
           required: true,
@@ -68,11 +68,6 @@ const orderSchema = new mongoose.Schema(
       type: String,
       required: true,
       trim: true,
-    },
-
-    orderDate: {
-      type: Date,
-      default: Date.now,
     },
   },
   {
