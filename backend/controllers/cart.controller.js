@@ -24,12 +24,14 @@ const getCartItems = async (req, res) => {
       .json({ success: false, message: "Failed to fetch cart" });
   }
 };
+
 const addToCart = async (req, res) => {
   try {
     const { itemId, quantity } = req.body;
     const userId = req.user._id;
 
     const product = await Product.findById(itemId);
+
     if (!product) {
       return res
         .status(404)
@@ -63,6 +65,7 @@ const incrementItemQuantity = async (req, res) => {
     const userId = req.user._id;
 
     const product = await Product.findById(itemId);
+
     if (!product) {
       return res
         .status(404)

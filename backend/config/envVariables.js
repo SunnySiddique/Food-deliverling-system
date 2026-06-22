@@ -14,6 +14,8 @@ const envVariables = {
   CLOUDINARY_NAME: process.env.CLOUDINARY_NAME,
   CLOUDINARY_API_KEY: process.env.CLOUDINARY_API_KEY,
   CLOUDINARY_API_SECRET: process.env.CLOUDINARY_API_SECRET,
+  PAYHERE_MERCHANT_ID: process.env.PAYHERE_MERCHANT_ID,
+  PAYHERE_MERCHANT_SECRET: process.env.PAYHERE_MERCHANT_SECRET,
 };
 
 export default envVariables;
