@@ -1,5 +1,9 @@
 import express from "express";
-import { createOrder, getAllOrders } from "../controllers/order.controller.js";
+import {
+  createOrder,
+  getAllOrders,
+  getOrders,
+} from "../controllers/order.controller.js";
 import authProtected from "../middlewares/auth.middleware.js";
 
 const router = express.Router();
@@ -7,7 +11,7 @@ const router = express.Router();
 router.post("/", authProtected, createOrder);
 
 // user
-router.get("/user/orders", authProtected, getAllOrders);
+router.get("/user/orders", authProtected, getOrders);
 // admin
 router.get("/admin/orders", authProtected, getAllOrders);
 
