@@ -1,0 +1,235 @@
+/* ── Profile Page ── */
+.page {
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.header {
+  margin-bottom: var(--space-lg);
+}
+
+.header h1 {
+  font-family: var(--font-display);
+  font-size: 2rem;
+  text-transform: uppercase;
+  margin: 0;
+  color: var(--color-text-primary);
+}
+
+/* ── Profile Card ── */
+.card {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  padding: var(--space-2xl) var(--space-lg);
+  box-shadow: var(--shadow-ticket);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* ── Avatar circle ── */
+.avatar {
+  width: 72px;
+  height: 72px;
+  border-radius: 50%;
+  background: var(--color-accent-red);
+  color: #fff;
+  font-family: var(--font-display);
+  font-size: 1.75rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: var(--space-md);
+  flex-shrink: 0;
+  text-transform: uppercase;
+}
+
+.greeting {
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: var(--color-text-primary);
+  margin-bottom: var(--space-sm);
+}
+
+/* ── Divider ── */
+.divider {
+  width: 100%;
+  height: 1px;
+  background: var(--color-border);
+  margin: var(--space-lg) 0;
+}
+
+/* ── Details list ── */
+.details {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+}
+
+.row {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-md);
+  padding: var(--space-sm) 0;
+}
+
+.rowIcon {
+  width: 36px;
+  height: 36px;
+  border-radius: var(--radius-sm);
+  background: var(--color-accent-red-light);
+  color: var(--color-accent-red);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.rowContent {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+  flex: 1;
+}
+
+.rowLabel {
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--color-text-muted);
+}
+
+.rowValue {
+  font-size: 0.9375rem;
+  color: var(--color-text-primary);
+  word-break: break-word;
+}
+
+/* ── Edit input fields ── */
+.editInput {
+  width: 100%;
+  padding: 8px 10px;
+  font-size: 0.9375rem;
+  font-family: var(--font-body);
+  color: var(--color-text-primary);
+  background: var(--color-bg);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  outline: none;
+  transition: border-color var(--transition-fast);
+}
+
+.editInput:focus {
+  border-color: var(--color-accent-red);
+  box-shadow: 0 0 0 2px var(--color-accent-red-light);
+}
+
+/* ── Error message ── */
+.error {
+  width: 100%;
+  margin-top: var(--space-md);
+  padding: var(--space-sm) var(--space-md);
+  background: var(--color-accent-red-light);
+  color: var(--color-accent-red);
+  font-size: 0.8125rem;
+  border-radius: var(--radius-sm);
+  text-align: center;
+}
+
+/* ── Action buttons ── */
+.actions {
+  display: flex;
+  gap: var(--space-sm);
+  margin-top: var(--space-xl);
+  width: 100%;
+}
+
+.btnEdit,
+.btnSave,
+.btnCancel {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-xs);
+  padding: 10px 20px;
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: 0.8125rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  border-radius: var(--radius-sm);
+  transition: all var(--transition-fast);
+  cursor: pointer;
+  border: none;
+  flex: 1;
+}
+
+.btnEdit {
+  background: var(--color-accent-red);
+  color: #fff;
+}
+
+.btnEdit:hover {
+  background: var(--color-accent-red-hover);
+}
+
+.btnSave {
+  background: var(--color-accent-teal);
+  color: #fff;
+}
+
+.btnSave:hover:not(:disabled) {
+  background: var(--color-accent-teal-hover);
+}
+
+.btnSave:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.btnCancel {
+  background: transparent;
+  color: var(--color-text-secondary);
+  border: 1px solid var(--color-border);
+}
+
+.btnCancel:hover:not(:disabled) {
+  background: var(--color-bg);
+  color: var(--color-text-primary);
+}
+
+.btnCancel:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.empty {
+  text-align: center;
+  color: var(--color-text-muted);
+  padding: var(--space-3xl) 0;
+}
+
+/* ── Responsive ── */
+@media (max-width: 480px) {
+  .page {
+    max-width: 100%;
+  }
+
+  .header h1 {
+    font-size: 1.5rem;
+  }
+
+  .card {
+    padding: var(--space-lg) var(--space-md);
+  }
+
+  .avatar {
+    width: 60px;
+    height: 60px;
+    font-size: 1.375rem;
+  }
+}

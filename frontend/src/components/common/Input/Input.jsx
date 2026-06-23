@@ -1,7 +1,7 @@
-import styles from './Input.module.css';
+import styles from "./Input.module.css";
 
-function Input({ label, type = 'text', id, error, className = '', ...rest }) {
-  const inputId = id || label?.toLowerCase().replace(/\s+/g, '-');
+function Input({ label, type = "text", id, error, className = "", ...rest }) {
+  const inputId = id || label?.toLowerCase().replace(/\s+/g, "-");
 
   return (
     <div className={`${styles.field} ${className}`}>
@@ -10,17 +10,17 @@ function Input({ label, type = 'text', id, error, className = '', ...rest }) {
           {label}
         </label>
       )}
-      {type === 'textarea' ? (
+      {type === "textarea" ? (
         <textarea
           id={inputId}
-          className={`${styles.input} ${styles.textarea} ${error ? styles.hasError : ''}`}
+          className={`${styles.input} ${styles.textarea} ${error ? styles.hasError : ""}`}
           {...rest}
         />
       ) : (
         <input
           id={inputId}
           type={type}
-          className={`${styles.input} ${error ? styles.hasError : ''}`}
+          className={`${styles.input} ${error ? styles.hasError : ""}`}
           {...rest}
         />
       )}
