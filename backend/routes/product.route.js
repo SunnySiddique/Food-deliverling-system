@@ -11,7 +11,7 @@ import upload from "../middlewares/upload.middleware.js";
 
 const router = express.Router();
 
-router.get("/", authProtected, getProducts);
+router.get("/", getProducts);
 router.get("/:productId", authProtected, getProduct);
 router.post("/create", authProtected, upload.single("image"), createProduct);
 

@@ -1,36 +1,90 @@
-import { Routes, Route, Navigate } from 'react-router-dom';
+import { Navigate, Route, Routes } from "react-router-dom";
 
 // Layouts
-import CustomerLayout from '../layouts/CustomerLayout';
-import AdminLayout from '../layouts/AdminLayout';
+import AdminLayout from "../layouts/AdminLayout";
+import CustomerLayout from "../layouts/CustomerLayout";
 
 // Customer pages
-import LoginPage from '../pages/customer/LoginPage';
-import RegisterPage from '../pages/customer/RegisterPage';
-import MenuPage from '../pages/customer/MenuPage';
-import CartPage from '../pages/customer/CartPage';
-import RedirectingPage from '../pages/customer/RedirectingPage';
-import ConfirmationPage from '../pages/customer/ConfirmationPage';
+import CartPage from "../pages/customer/CartPage";
+import ConfirmationPage from "../pages/customer/ConfirmationPage";
+import LoginPage from "../pages/customer/LoginPage";
+import MenuPage from "../pages/customer/MenuPage";
+import ProfilePage from "../pages/customer/ProfilePage";
+import RedirectingPage from "../pages/customer/RedirectingPage";
+import RegisterPage from "../pages/customer/RegisterPage";
 
 // Admin pages
-import AdminLoginPage from '../pages/admin/AdminLoginPage';
-import DashboardPage from '../pages/admin/DashboardPage';
-import CustomerDetailsPage from '../pages/admin/CustomerDetailsPage';
-import FoodManagementPage from '../pages/admin/FoodManagementPage';
-import OrderStatusPage from '../pages/admin/OrderStatusPage';
+import { useEffect } from "react";
+import ProtectedRoute from "../components/ProtectedRoute";
+import PublicRoute from "../components/PublicRoute";
+import AdminLoginPage from "../pages/admin/AdminLoginPage";
+import CustomerDetailsPage from "../pages/admin/CustomerDetailsPage";
+import DashboardPage from "../pages/admin/DashboardPage";
+import FoodManagementPage from "../pages/admin/FoodManagementPage";
+import OrderStatusPage from "../pages/admin/OrderStatusPage";
+import { useAuthStore } from "../store/useAuthStore";
 
 function AppRoutes() {
+  const { checkAuth } = useAuthStore();
+
+  useEffect(() => {
+    checkAuth();
+  }, []);
+
   return (
     <Routes>
       {/* ── Customer routes ── */}
       <Route element={<CustomerLayout />}>
         <Route path="/" element={<Navigate to="/menu" replace />} />
-        <Route path="/login" element={<LoginPage />} />
-        <Route path="/register" element={<RegisterPage />} />
+        <Route
+          path="/login"
+          element={
+            <PublicRoute>
+              <LoginPage />
+            </PublicRoute>
+          }
+        />
+        <Route
+          path="/register"
+          element={
+            <PublicRoute>
+              <RegisterPage />
+            </PublicRoute>
+          }
+        />
         <Route path="/menu" element={<MenuPage />} />
-        <Route path="/cart" element={<CartPage />} />
-        <Route path="/payment" element={<RedirectingPage />} />
-        <Route path="/confirmation" element={<ConfirmationPage />} />
+        <Route
+          path="/cart"
+          element={
+            <ProtectedRoute>
+              <CartPage />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/payment"
+          element={
+            <ProtectedRoute>
+              <RedirectingPage />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/confirmation"
+          element={
+            <ProtectedRoute>
+              <ConfirmationPage />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/profile"
+          element={
+            <ProtectedRoute>
+              <ProfilePage />
+            </ProtectedRoute>
+          }
+        />
       </Route>
 
       {/* ── Admin routes ── */}

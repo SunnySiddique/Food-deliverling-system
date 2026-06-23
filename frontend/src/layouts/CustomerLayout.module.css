@@ -22,6 +22,13 @@
 .brand {
   display: flex;
   align-items: center;
+  gap: var(--space-md);
+  flex-shrink: 0;
+}
+
+.brandTop {
+  display: flex;
+  align-items: center;
   gap: var(--space-sm);
   font-family: var(--font-display);
   font-size: 1.25rem;
@@ -29,15 +36,54 @@
   letter-spacing: 0.04em;
   color: var(--color-text-primary);
   text-decoration: none;
-  flex-shrink: 0;
 }
 
-.brand:hover {
+.brandTop:hover {
   color: var(--color-text-primary);
 }
 
 .brandIcon {
   font-size: 1.5rem;
+}
+
+/* ── User badge inline beside brand ── */
+.brandUser {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  padding: 3px 10px 3px 6px;
+  font-family: var(--font-body);
+  font-size: 0.6875rem;
+  font-weight: 600;
+  color: var(--color-text-secondary);
+  border-radius: 20px;
+  background: var(--color-bg);
+  border: 1px solid var(--color-border);
+  transition: all var(--transition-base);
+  white-space: nowrap;
+  cursor: default;
+}
+
+.brandUser:hover {
+  color: var(--color-accent-red);
+  border-color: var(--color-accent-red);
+  background: var(--color-accent-red-light);
+}
+
+.navAvatarSmall {
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: var(--color-accent-red);
+  color: #fff;
+  font-size: 0.5625rem;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  text-transform: uppercase;
+  line-height: 1;
 }
 
 /* ── Hamburger ── */
@@ -107,6 +153,93 @@
   position: relative;
 }
 
+/* ── User dropdown (right side) ── */
+.userDropdown {
+  position: relative;
+}
+
+.dropdownToggle {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  padding: 4px 8px 4px 4px;
+  background: none;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.dropdownToggle:hover,
+.dropdownToggleOpen {
+  border-color: var(--color-accent-red);
+  background: var(--color-accent-red-light);
+}
+
+.dropdownAvatar {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: var(--color-accent-red);
+  color: #fff;
+  font-size: 0.6875rem;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  text-transform: uppercase;
+  line-height: 1;
+}
+
+.dropdownArrow {
+  color: var(--color-text-muted);
+  transition: transform var(--transition-fast);
+}
+
+.dropdownToggleOpen .dropdownArrow {
+  transform: rotate(180deg);
+}
+
+.dropdownMenu {
+  position: absolute;
+  top: calc(100% + 6px);
+  right: 0;
+  min-width: 160px;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  z-index: 200;
+}
+
+.dropdownItem {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  width: 100%;
+  padding: 10px 14px;
+  font-family: var(--font-body);
+  font-size: 0.8125rem;
+  font-weight: 500;
+  color: var(--color-text-secondary);
+  background: none;
+  border: none;
+  text-decoration: none;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.dropdownItem:hover {
+  background: var(--color-accent-red-light);
+  color: var(--color-accent-red);
+}
+
+.dropdownItem:not(:last-child) {
+  border-bottom: 1px solid var(--color-border);
+}
+
 /* ── Overlay for mobile menu ── */
 .overlay {
   display: none;
@@ -159,6 +292,49 @@
     border-bottom: 1px dashed var(--color-border-dashed);
   }
 
+  .userDropdown {
+    width: 100%;
+  }
+
+  .dropdownToggle {
+    width: 100%;
+    justify-content: space-between;
+    padding: 14px var(--space-md);
+    border-radius: var(--radius-sm);
+    border: none;
+    border-bottom: 1px dashed var(--color-border-dashed);
+  }
+
+  .dropdownMenu {
+    position: static;
+    box-shadow: none;
+    border: none;
+    border-radius: 0;
+  }
+
+  .dropdownItem {
+    padding-left: var(--space-xl);
+  }
+
+  .brandTop {
+    font-size: 1.0625rem;
+  }
+
+  .brandIcon {
+    font-size: 1.25rem;
+  }
+
+  .brandUser {
+    font-size: 0.625rem;
+    padding: 2px 8px 2px 5px;
+  }
+
+  .navAvatarSmall {
+    width: 16px;
+    height: 16px;
+    font-size: 0.5rem;
+  }
+
   .overlay {
     display: block;
     position: fixed;
@@ -169,14 +345,6 @@
 
   .main {
     padding: var(--space-md);
-  }
-
-  .brand {
-    font-size: 1.0625rem;
-  }
-
-  .brandIcon {
-    font-size: 1.25rem;
   }
 }
 

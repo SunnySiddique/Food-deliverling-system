@@ -28,13 +28,6 @@ export const signupValidator = [
     .withMessage("Phone number is required")
     .isMobilePhone("any")
     .withMessage("Please enter a valid phone number"),
-
-  body("address")
-    .trim()
-    .notEmpty()
-    .withMessage("Address is required")
-    .isLength({ min: 10 })
-    .withMessage("Address must be at least 10 characters"),
 ];
 
 export const loginValidator = [

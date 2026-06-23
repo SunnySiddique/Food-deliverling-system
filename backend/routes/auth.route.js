@@ -12,7 +12,7 @@ import {
 
 const router = express.Router();
 
-router.post("/signup", signupValidator, validate, signupUser);
+router.post("/register", signupValidator, validate, signupUser);
 router.post("/login", loginValidator, validate, loginUser);
 router.post("/logout", logoutUser);
 

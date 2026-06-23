@@ -4,7 +4,7 @@ import User from "../models/auth.model.js";
 import setTokenCookie from "../utils/setCookie.js";
 
 const signupUser = async (req, res) => {
-  const { name, email, password, phone, address } = req.body;
+  const { name, email, password, phone } = req.body;
   try {
     const existEmail = await User.findOne({ email });
 
@@ -19,7 +19,6 @@ const signupUser = async (req, res) => {
       email,
       password,
       phone,
-      address,
     });
 
     const token = jwt.sign({ userId: newUser._id }, envVariables.JWT_SECRET, {
