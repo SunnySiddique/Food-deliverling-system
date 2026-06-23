@@ -9,6 +9,7 @@ import cartRoutes from "./routes/cart.route.js";
 import orderRoutes from "./routes/order.route.js";
 import paymentRoutes from "./routes/payment.route.js";
 import productRoutes from "./routes/product.route.js";
+import userRoutes from "./routes/user.route.js";
 
 dotenv.config();
 
@@ -26,6 +27,7 @@ app.use("/api/v1/orders", orderRoutes);
 app.use("/api/v1/cart", cartRoutes);
 
 app.use("/api/v1/payment", paymentRoutes);
+app.use("/api/v1/users", userRoutes);
 
 app.listen(envVariables.PORT, async () => {
   await connectDB();
