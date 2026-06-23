@@ -9,6 +9,7 @@ import CartPage from "../pages/customer/CartPage";
 import ConfirmationPage from "../pages/customer/ConfirmationPage";
 import LoginPage from "../pages/customer/LoginPage";
 import MenuPage from "../pages/customer/MenuPage";
+import OrdersPage from "../pages/customer/OrdersPage";
 import ProfilePage from "../pages/customer/ProfilePage";
 import RedirectingPage from "../pages/customer/RedirectingPage";
 import RegisterPage from "../pages/customer/RegisterPage";
@@ -70,10 +71,18 @@ function AppRoutes() {
           }
         />
         <Route
-          path="/confirmation"
+          path="/confirmation/:orderId"
           element={
             <ProtectedRoute>
               <ConfirmationPage />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/orders"
+          element={
+            <ProtectedRoute>
+              <OrdersPage />
             </ProtectedRoute>
           }
         />

@@ -48,7 +48,7 @@ const payhereWebhook = async (req, res) => {
     // -3 = Chargedback
 
     const statusMap = {
-      2: { paymentStatus: "paid", orderStatus: "confirmed" },
+      2: { paymentStatus: "paid", orderStatus: "paid" },
       0: { paymentStatus: "pending", orderStatus: "pending" },
       "-1": { paymentStatus: "failed", orderStatus: "cancelled" },
       "-2": { paymentStatus: "failed", orderStatus: "cancelled" },

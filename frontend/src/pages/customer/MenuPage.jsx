@@ -69,7 +69,6 @@ function MenuPage() {
   const handleAddToCart = async (item) => {
     try {
       await addToCart(item);
-      showToast.success("Added to cart 🛒", `${item.name} added successfully.`);
     } catch (err) {
       showToast.error(
         "Failed to add item",

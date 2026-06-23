@@ -1,25 +1,54 @@
-import { useNavigate } from 'react-router-dom';
-import OrderConfirmation from '../../components/customer/OrderConfirmation/OrderConfirmation';
-
-const MOCK_ORDER = {
-  orderNumber: 'ORD-2847',
-  items: [
-    { name: 'Margherita Pizza', qty: 2, price: 12.99 },
-    { name: 'Chocolate Milkshake', qty: 1, price: 5.99 },
-    { name: 'French Fries', qty: 1, price: 4.99 },
-  ],
-  total: 36.96,
-};
+import { useEffect, useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
+import { getOrderApi } from "../../api/orderApi";
+import Loader from "../../components/common/Loader/Loader";
+import OrderConfirmation from "../../components/customer/OrderConfirmation/OrderConfirmation";
 
 function ConfirmationPage() {
   const navigate = useNavigate();
+  const { orderId } = useParams();
+  const [order, setOrder] = useState(null);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    if (!orderId) {
+      navigate("/menu", { replace: true });
+      return;
+    }
+
+    const fetchOrder = async () => {
+      try {
+        const res = await getOrderApi(orderId);
+        if (res.success) {
+          setOrder(res.data.order);
+        } else {
+          navigate("/menu", { replace: true });
+        }
+      } catch {
+        navigate("/menu", { replace: true });
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchOrder();
+  }, [orderId]);
+
+  if (loading) return <Loader message="Loading your order..." />;
+  if (!order) return null;
+
+  const items = (order.orderItems || []).map((item) => ({
+    name: item.name,
+    qty: item.quantity,
+    price: item.price,
+  }));
 
   return (
     <OrderConfirmation
-      orderNumber={MOCK_ORDER.orderNumber}
-      items={MOCK_ORDER.items}
-      total={MOCK_ORDER.total}
-      onBackToMenu={() => navigate('/menu')}
+      orderNumber={order.displayOrderId || order.orderId}
+      items={items}
+      total={order.totalAmount}
+      onBackToMenu={() => navigate("/menu")}
     />
   );
 }

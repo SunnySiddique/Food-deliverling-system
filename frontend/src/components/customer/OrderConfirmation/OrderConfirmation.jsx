@@ -1,7 +1,7 @@
-import Button from '../../common/Button/Button';
-import Card from '../../common/Card/Card';
-import Badge from '../../common/Badge/Badge';
-import styles from './OrderConfirmation.module.css';
+import Badge from "../../common/Badge/Badge";
+import Button from "../../common/Button/Button";
+import Card from "../../common/Card/Card";
+import styles from "./OrderConfirmation.module.css";
 
 function OrderConfirmation({ orderNumber, items, total, onBackToMenu }) {
   return (
@@ -17,7 +17,7 @@ function OrderConfirmation({ orderNumber, items, total, onBackToMenu }) {
       </p>
 
       <Badge variant="success" size="lg">
-        Order #{orderNumber}
+        Order {orderNumber}
       </Badge>
 
       {/* Summary ticket recap */}
@@ -34,7 +34,9 @@ function OrderConfirmation({ orderNumber, items, total, onBackToMenu }) {
             <li key={i} className={styles.itemRow}>
               <span className={styles.itemQty}>×{item.qty}</span>
               <span className={styles.itemName}>{item.name}</span>
-              <span className={styles.itemPrice}>${(item.price * item.qty).toFixed(2)}</span>
+              <span className={styles.itemPrice}>
+                ${(item.price * item.qty).toFixed(2)}
+              </span>
             </li>
           ))}
         </ul>
