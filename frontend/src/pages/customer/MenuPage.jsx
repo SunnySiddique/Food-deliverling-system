@@ -3,6 +3,7 @@ import { getProdcutsApi } from "../../api/productApi";
 import Loader from "../../components/common/Loader/Loader";
 import Pagination from "../../components/common/Pagination/Pagination";
 import MenuGrid from "../../components/customer/MenuGrid/MenuGrid";
+import useCartStore from "../../store/useCartStore";
 import { showToast } from "../../utils/toast";
 import styles from "./MenuPage.module.css";
 
@@ -22,16 +23,14 @@ const mapProducts = (res) =>
   }));
 
 function MenuPage() {
+  const { addToCart } = useCartStore();
+
   const [activeCategory, setActiveCategory] = useState(null);
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [page, setPage] = useState(1);
   const [pagination, setPagination] = useState(null);
-
-  const handleAddToOrder = (itemId) => {
-    console.log("Added to order:", itemId);
-  };
 
   const loadProducts = useCallback(async (pageNum) => {
     setLoading(true);
@@ -67,6 +66,18 @@ function MenuPage() {
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
+  const handleAddToCart = async (item) => {
+    try {
+      await addToCart(item);
+      showToast.success("Added to cart 🛒", `${item.name} added successfully.`);
+    } catch (err) {
+      showToast.error(
+        "Failed to add item",
+        err?.response?.data?.message || "Something went wrong.",
+      );
+    }
+  };
+
   return (
     <div className={styles.page}>
       <div className={styles.header}>
@@ -99,7 +110,7 @@ function MenuPage() {
             categories={CATEGORIES}
             activeCategory={activeCategory}
             onCategoryChange={setActiveCategory}
-            onAddToOrder={handleAddToOrder}
+            onAddToCart={handleAddToCart}
           />
 
           {pagination && (

@@ -5,18 +5,18 @@ const getCartItems = async (req, res) => {
   try {
     const userId = req.user._id;
 
-    const cartItems = await Cart.findOne({ userId }).populate(
+    const carts = await Cart.findOne({ userId }).populate(
       "items.itemId",
       "name price imageUrl",
     );
 
-    if (!cartItems) {
+    if (!carts) {
       return res
         .status(404)
         .json({ success: false, message: "Cart not found" });
     }
 
-    return res.status(200).json({ success: true, data: { cartItems } });
+    return res.status(200).json({ success: true, carts });
   } catch (error) {
     console.error("Error in [getCartItems] controller:", error.message);
     return res
@@ -136,9 +136,60 @@ const decrementItemQuantity = async (req, res) => {
   }
 };
 
+const removeItem = async (req, res) => {
+  try {
+    const { itemId } = req.body;
+    const userId = req.user._id;
+
+    const cart = await Cart.findOne({ userId, "items.itemId": itemId });
+
+    if (!cart) {
+      return res
+        .status(404)
+        .json({ success: false, message: "Item not found in cart" });
+    }
+
+    const updatedCart = await Cart.findOneAndUpdate(
+      { userId },
+      { $pull: { items: { itemId } } },
+      { new: true },
+    );
+
+    return res.status(200).json({ success: true, data: { cart: updatedCart } });
+  } catch (error) {
+    console.error("Error in [removeItem] controller:", error.message);
+    res.status(500).json({ success: false, message: "Failed to remove item" });
+  }
+};
+
+const clearCart = async (req, res) => {
+  try {
+    const userId = req.user._id;
+
+    const updatedCart = await Cart.findOneAndUpdate(
+      { userId },
+      { $set: { items: [] } },
+      { new: true },
+    );
+
+    if (!updatedCart) {
+      return res
+        .status(404)
+        .json({ success: false, message: "Cart not found" });
+    }
+
+    return res.status(200).json({ success: true, data: { cart: updatedCart } });
+  } catch (error) {
+    console.error("Error in [clearCart] controller:", error.message);
+    res.status(500).json({ success: false, message: "Failed to clear cart" });
+  }
+};
+
 export {
   addToCart,
+  clearCart,
   decrementItemQuantity,
   getCartItems,
   incrementItemQuantity,
+  removeItem,
 };

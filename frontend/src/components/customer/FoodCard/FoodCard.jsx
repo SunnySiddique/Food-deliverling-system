@@ -1,8 +1,8 @@
-import Button from '../../common/Button/Button';
-import Badge from '../../common/Badge/Badge';
-import styles from './FoodCard.module.css';
+import Badge from "../../common/Badge/Badge";
+import Button from "../../common/Button/Button";
+import styles from "./FoodCard.module.css";
 
-function FoodCard({ item, onAddToOrder }) {
+function FoodCard({ item, onAddToCart }) {
   const { id, name, description, price, category, image, isPopular } = item;
 
   return (
@@ -18,7 +18,9 @@ function FoodCard({ item, onAddToOrder }) {
         )}
         {isPopular && (
           <span className={styles.popularTag}>
-            <Badge variant="warning" size="sm">Popular</Badge>
+            <Badge variant="warning" size="sm">
+              Popular
+            </Badge>
           </span>
         )}
       </div>
@@ -30,7 +32,7 @@ function FoodCard({ item, onAddToOrder }) {
 
         <div className={styles.footer}>
           <span className={styles.price}>${price.toFixed(2)}</span>
-          <Button size="sm" variant="primary" onClick={() => onAddToOrder(id)}>
+          <Button size="sm" variant="primary" onClick={() => onAddToCart(item)}>
             + Add
           </Button>
         </div>
