@@ -1,27 +1,40 @@
-import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import CartSummary from '../../components/customer/CartSummary/CartSummary';
-import styles from './CartPage.module.css';
-
-const MOCK_CART_ITEMS = [
-  { id: 1, name: 'Margherita Pizza', price: 12.99, qty: 2 },
-  { id: 2, name: 'Chocolate Milkshake', price: 5.99, qty: 1 },
-  { id: 3, name: 'French Fries', price: 4.99, qty: 1 },
-];
+import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import Loader from "../../components/common/Loader/Loader";
+import CartSummary from "../../components/customer/CartSummary/CartSummary";
+import useCartStore from "../../store/useCartStore";
+import { showToast } from "../../utils/toast";
+import styles from "./CartPage.module.css";
 
 function CartPage() {
-  const [items, setItems] = useState(MOCK_CART_ITEMS);
   const navigate = useNavigate();
+  const { items, isLoading, fetchCart, increment, decrement, removeItem } =
+    useCartStore();
 
-  const handleUpdateQty = (id, qty) => {
-    setItems((prev) =>
-      prev.map((item) => (item.id === id ? { ...item, qty: Math.max(1, qty) } : item))
-    );
+  useEffect(() => {
+    fetchCart();
+  }, []);
+  console.log("items:", items);
+
+  const handleUpdateQty = async (itemId, newQty, currentQty) => {
+    try {
+      if (newQty > currentQty) await increment(itemId);
+      else await decrement(itemId);
+    } catch {
+      showToast.error("Error", "Could not update quantity.");
+    }
   };
 
-  const handleRemoveItem = (id) => {
-    setItems((prev) => prev.filter((item) => item.id !== id));
+  const handleRemoveItem = async (itemId) => {
+    try {
+      await removeItem(itemId);
+      showToast.success("Removed", "Item removed from cart.");
+    } catch {
+      showToast.error("Error", "Could not remove item.");
+    }
   };
+
+  if (isLoading) return <Loader message="Loading your cart..." />;
 
   return (
     <div className={styles.page}>
@@ -32,7 +45,7 @@ function CartPage() {
         items={items}
         onUpdateQty={handleUpdateQty}
         onRemoveItem={handleRemoveItem}
-        onProceed={() => navigate('/payment')}
+        onProceed={() => navigate("/payment")}
       />
     </div>
   );
