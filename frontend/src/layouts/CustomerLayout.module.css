@@ -151,6 +151,27 @@
 
 .cartLink {
   position: relative;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.cartBadge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 18px;
+  height: 18px;
+  padding: 0 5px;
+  font-size: 0.625rem;
+  font-weight: 700;
+  line-height: 1;
+  color: #fff;
+  background: var(--color-accent-red);
+  border-radius: 20px;
+  position: absolute;
+  top: 2px;
+  right: 2px;
 }
 
 /* ── User dropdown (right side) ── */

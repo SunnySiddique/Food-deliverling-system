@@ -1,5 +1,11 @@
+import envVariables from "../config/envVariables.js";
+import Cart from "../models/cart.model.js";
 import Order from "../models/order.model.js";
-import { generateOrderId } from "../utils/generateOrderId.js";
+import {
+  generateDisplayOrderId,
+  generateOrderId,
+} from "../utils/generateOrderId.js";
+import { generatePayhereHash } from "../utils/generatePayhereHash.js";
 
 // user
 const getOrders = async (req, res) => {
@@ -10,18 +16,27 @@ const getOrders = async (req, res) => {
       createdAt: -1,
     });
 
-    if (orders.length === 0) {
-      return res
-        .status(404)
-        .json({ success: false, message: "No orders found" });
-    }
-
     return res.status(200).json({ success: true, data: { orders } });
   } catch (error) {
     console.error("Error in [getOrders] controller:", error.message);
     return res
       .status(500)
       .json({ success: false, message: "Failed to fetch orders" });
+  }
+};
+
+const getOrder = async (req, res) => {
+  try {
+    const order = await Order.findOne({ orderId: req.params.orderId });
+    if (!order)
+      return res
+        .status(404)
+        .json({ success: false, message: "Order not found" });
+    return res.json({ success: true, data: { order } });
+  } catch (err) {
+    return res
+      .status(500)
+      .json({ success: false, message: "Failed to fetch order" });
   }
 };
 
@@ -121,7 +136,7 @@ const createOrder = async (req, res) => {
     const payment = {
       sandbox: true,
       merchant_id: merchantId,
-      return_url: "http://localhost:5173/confirmation",
+      return_url: `http://localhost:5173/confirmation/${orderId}`,
       cancel_url: "http://localhost:5173/cart",
       notify_url: "http://localhost:4000/api/v1/payment/webhook",
       order_id: orderId,
@@ -153,4 +168,4 @@ const createOrder = async (req, res) => {
   }
 };
 
-export { createOrder, getAllOrders, getOrders };
+export { createOrder, getAllOrders, getOrder, getOrders };

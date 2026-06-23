@@ -5,7 +5,7 @@ import { getCurrentUserApi } from "../api/userApi";
 export const useAuthStore = create((set) => ({
   user: null,
   isAuthenticated: false,
-  isLoading: false,
+  isLoading: true,
 
   checkAuth: async () => {
     set({ isLoading: true });

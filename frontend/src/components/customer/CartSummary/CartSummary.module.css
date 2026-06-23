@@ -1,4 +1,163 @@
-/* ── Cart Summary (Ticket style) ── */
+/* ── Two-column grid ── */
+.grid {
+  display: grid;
+  grid-template-columns: 1fr 1.4fr;
+  gap: var(--space-xl);
+  align-items: start;
+}
+
+@media (max-width: 860px) {
+  .grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ── Delivery Address Panel (left) ── */
+.addressPanel {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  padding: var(--space-lg);
+  box-shadow: var(--shadow-ticket);
+}
+
+.panelTitle {
+  font-family: var(--font-display);
+  font-size: 1.0625rem;
+  text-transform: uppercase;
+  margin: 0 0 var(--space-md) 0;
+  color: var(--color-text-primary);
+}
+
+/* ── Address display ── */
+.addressDisplay {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+}
+
+.addressDisplayRow {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+}
+
+.addressIcon {
+  flex-shrink: 0;
+  margin-top: 2px;
+  color: var(--color-accent-red);
+}
+
+.addressText {
+  font-size: 0.9375rem;
+  line-height: 1.5;
+  color: var(--color-text-primary);
+}
+
+.editAddressBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: none;
+  border: none;
+  padding: 4px 8px;
+  font-family: var(--font-body);
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--color-accent-red);
+  cursor: pointer;
+  border-radius: var(--radius-sm);
+  transition: all var(--transition-fast);
+  align-self: flex-start;
+}
+
+.editAddressBtn:hover {
+  background: var(--color-accent-red-light);
+}
+
+/* ── Address editing ── */
+.addressEdit {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+}
+
+.addressInputWrapper {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+}
+
+.addressTextarea {
+  flex: 1;
+  resize: vertical;
+  min-height: 80px;
+  padding: 10px 12px;
+  font-family: var(--font-body);
+  font-size: 0.875rem;
+  line-height: 1.5;
+  color: var(--color-text-primary);
+  background: var(--color-bg);
+  border: 1.5px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  outline: none;
+  transition: border-color var(--transition-fast);
+}
+
+.addressTextarea:focus {
+  border-color: var(--color-accent-red);
+}
+
+.addressTextarea::placeholder {
+  color: var(--color-text-muted);
+}
+
+.saveAddressBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  align-self: flex-start;
+  padding: 6px 14px;
+  font-family: var(--font-body);
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: #fff;
+  background: var(--color-accent-red);
+  border: none;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  transition: opacity var(--transition-fast);
+}
+
+.saveAddressBtn:hover:not(:disabled) {
+  opacity: 0.85;
+}
+
+.saveAddressBtn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.addressHint {
+  margin: var(--space-md) 0 0 0;
+  font-size: 0.75rem;
+  color: var(--color-text-muted);
+  line-height: 1.5;
+}
+
+.profileLink {
+  color: var(--color-accent-red);
+  text-decoration: underline;
+  font-weight: 500;
+}
+
+.profileLink:hover {
+  opacity: 0.8;
+}
+
+/* ── Cart Summary (Ticket style, right side) ── */
 .summary {
   background: var(--color-surface);
   border: 1px solid var(--color-border);
@@ -54,10 +213,35 @@
   margin: 0;
 }
 
+.headerRight {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
 .itemCount {
   font-size: 0.8125rem;
   color: var(--color-text-muted);
   font-family: var(--font-mono);
+}
+
+.clearBtn {
+  background: none;
+  border: none;
+  padding: 4px 8px;
+  font-family: var(--font-body);
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--color-accent-red);
+  cursor: pointer;
+  border-radius: var(--radius-sm);
+  transition: all var(--transition-fast);
+}
+
+.clearBtn:hover {
+  background: var(--color-accent-red-light);
 }
 
 /* ── Item list ── */
@@ -193,7 +377,8 @@
 
 /* ── Responsive ── */
 @media (max-width: 480px) {
-  .summary {
+  .summary,
+  .addressPanel {
     padding: var(--space-md);
   }
 
